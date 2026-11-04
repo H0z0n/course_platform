@@ -5,7 +5,7 @@ import { ThemeSwitcher } from "../theme/ThemeSwitcher";
 
 export function Layout() {
   const { user, logout } = useAuth();
-  const { site_name } = useSite();
+  const { site_name, logo_url } = useSite();
   const navigate = useNavigate();
 
   return (
@@ -13,6 +13,7 @@ export function Layout() {
       <header className="header">
         <div className="container header-inner">
           <Link to="/" className="brand">
+            {logo_url && <img className="brand-logo" src={logo_url} alt="" />}
             {site_name}
           </Link>
           <nav className="nav" aria-label="Основная навигация">
@@ -57,8 +58,14 @@ export function Layout() {
         <Outlet />
       </main>
       <footer className="footer">
-        <div className="container">
-          © {new Date().getFullYear()} {site_name}
+        <div className="container footer-inner">
+          <span>
+            © {new Date().getFullYear()} {site_name}
+          </span>
+          <nav className="footer-links" aria-label="Документы">
+            <Link to="/legal/privacy">Политика конфиденциальности</Link>
+            <Link to="/legal/consent">Согласие на обработку данных</Link>
+          </nav>
         </div>
       </footer>
     </div>

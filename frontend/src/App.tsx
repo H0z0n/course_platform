@@ -4,7 +4,8 @@ import { RequireAuth, RequireStaff } from "./auth/guards";
 import { Layout } from "./components/Layout";
 import { Spinner } from "./components/ui";
 import { AdminLayout } from "./pages/admin/AdminLayout";
-import { LoginPage, RegisterPage } from "./pages/AuthPages";
+import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from "./pages/AuthPages";
+import { LegalPage } from "./pages/LegalPage";
 import { CatalogPage } from "./pages/CatalogPage";
 import { CoursePage } from "./pages/CoursePage";
 import { LessonPage } from "./pages/LessonPage";
@@ -23,6 +24,9 @@ const router = createBrowserRouter([
       { path: "courses/:slug/lessons/:lessonId", element: <LessonPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      { path: "forgot-password", element: <ForgotPasswordPage /> },
+      { path: "reset-password", element: <ResetPasswordPage /> },
+      { path: "legal/:slug", element: <LegalPage /> },
       {
         path: "my",
         element: (
@@ -67,6 +71,18 @@ const router = createBrowserRouter([
             path: "purchases",
             lazy: async () => ({
               Component: (await import("./pages/admin/PurchasesPage")).PurchasesPage,
+            }),
+          },
+          {
+            path: "branding",
+            lazy: async () => ({
+              Component: (await import("./pages/admin/BrandingPage")).BrandingPage,
+            }),
+          },
+          {
+            path: "documents",
+            lazy: async () => ({
+              Component: (await import("./pages/admin/LegalDocumentsPage")).LegalDocumentsPage,
             }),
           },
           {

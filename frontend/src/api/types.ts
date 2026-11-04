@@ -16,9 +16,18 @@ export interface Token {
 
 export interface SiteInfo {
   site_name: string;
+  logo_url: string | null;
+  accent_color: string | null;
+  hero_badge: string | null;
+  hero_title: string;
+  hero_text: string | null;
   currency: string;
   demo_payments: boolean;
 }
+
+export type SiteSettingsPayload = Partial<
+  Pick<SiteInfo, "site_name" | "logo_url" | "accent_color" | "hero_badge" | "hero_title" | "hero_text">
+>;
 
 export interface Course {
   id: number;
@@ -126,7 +135,17 @@ export interface CoursePayload {
   cover_image_url: string | null;
 }
 
-export type QuestionKind = "single" | "multiple" | "text";
+export type LegalSlug = "privacy" | "consent";
+
+export interface LegalPage {
+  slug: LegalSlug;
+  title: string;
+  content: string;
+  updated_at: string | null;
+  is_template: boolean;
+}
+
+export type QuestionKind ="single" | "multiple" | "text";
 
 export interface AnswerResult {
   question_id: number;

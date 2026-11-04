@@ -5,10 +5,11 @@ import { CourseCard } from "../components/CourseCard";
 import { EmptyState, ErrorMessage, Spinner } from "../components/ui";
 import { plural } from "../lib/format";
 import { useApi } from "../lib/useApi";
-import { usePageTitle } from "../site/SiteContext";
+import { usePageTitle, useSite } from "../site/SiteContext";
 
 export function CatalogPage() {
   usePageTitle();
+  const site = useSite();
   const { user } = useAuth();
   const courses = useApi(() => api.courses.list(), []);
   const hasQuizzes = courses.data?.some((course) => course.question_count > 0) ?? false;
@@ -17,15 +18,13 @@ export function CatalogPage() {
     <div className="container">
       <section className="hero">
         <div className="hero-text">
-          <span className="hero-badge">Первые уроки — бесплатно</span>
-          <h1>
-            Учитесь в своём темпе —<br />
-            глава за главой
-          </h1>
+          {site.hero_badge && <span className="hero-badge">{site.hero_badge}</span>}
+          <h1 className="hero-title">{site.hero_title}</h1>
           <p>
-            {hasQuizzes
-              ? "После уроков — короткие вопросы, чтобы проверить себя, и прогресс, который видно."
-              : "Короткие понятные уроки и прогресс, который видно."}
+            {site.hero_text ??
+              (hasQuizzes
+                ? "После уроков — короткие вопросы, чтобы проверить себя, и прогресс, который видно."
+                : "Короткие понятные уроки и прогресс, который видно.")}
           </p>
           <a href="#courses" className="btn btn-light btn-lg">
             Выбрать курс

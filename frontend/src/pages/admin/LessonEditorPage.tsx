@@ -178,7 +178,10 @@ function LessonForm({
                 onChange={(event) => setVideoUrl(event.target.value)}
               />
             </label>
-            <small className="muted">YouTube, Vimeo или прямая ссылка на файл .mp4 / .webm.</small>
+            <small className="muted">
+              Kinescope, VK Видео, Rutube, YouTube, Vimeo или прямая ссылка на файл .mp4 / .webm.
+              Для учеников из России надёжнее Kinescope, VK Видео или Rutube.
+            </small>
             {videoUrl.trim() && <VideoPlayer url={videoUrl} title={title} />}
           </div>
         )}

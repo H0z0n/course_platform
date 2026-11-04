@@ -7,6 +7,8 @@ import type {
   CourseOutline,
   CoursePayload,
   CourseProgress,
+  LegalPage,
+  LegalSlug,
   Lesson,
   LessonPayload,
   LessonProgress,
@@ -20,6 +22,7 @@ import type {
   QuestionPayload,
   QuestionPublic,
   SiteInfo,
+  SiteSettingsPayload,
   ThemePreference,
   Token,
   User,
@@ -28,10 +31,15 @@ import type {
 
 export const api = {
   site: () => request<SiteInfo>("GET", "/site"),
+  updateSite: (data: SiteSettingsPayload) => request<SiteInfo>("PATCH", "/site", data),
 
   auth: {
-    register: (email: string, password: string) =>
-      request<User>("POST", "/auth/register", { email, password }),
+    register: (email: string, password: string, consent: boolean) =>
+      request<User>("POST", "/auth/register", { email, password, personal_data_consent: consent }),
+    requestPasswordReset: (email: string) =>
+      request<{ detail: string }>("POST", "/auth/password-reset/request", { email }),
+    confirmPasswordReset: (token: string, password: string) =>
+      request<void>("POST", "/auth/password-reset/confirm", { token, password }),
     login: (email: string, password: string) =>
       request<Token>("POST", "/auth/login", new URLSearchParams({ username: email, password })),
     me: () => request<User>("GET", "/auth/me"),
@@ -89,6 +97,13 @@ export const api = {
 
   progress: {
     mine: () => request<MyCourse[]>("GET", "/progress/me"),
+  },
+
+  legal: {
+    list: () => request<LegalPage[]>("GET", "/legal"),
+    get: (slug: LegalSlug) => request<LegalPage>("GET", `/legal/${slug}`),
+    update: (slug: LegalSlug, data: { title: string; content: string }) =>
+      request<LegalPage>("PUT", `/legal/${slug}`, data),
   },
 
   quiz: {
