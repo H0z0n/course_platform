@@ -96,10 +96,16 @@ npm run build
 | `SECRET_KEY` | да | — | ключ подписи JWT |
 | `DB_ECHO` | нет | `false` | печатать SQL-запросы в консоль |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | нет | `1440` | срок жизни токена входа |
-| `SITE_NAME` | нет | `Course Platform` | название сайта |
+| `SITE_NAME` | нет | `Course Platform` | название сайта, пока владелец не задал своё в «Управление → Оформление» |
 | `CURRENCY` | нет | `RUB` | валюта цен (код ISO 4217) |
 | `DEMO_PAYMENTS` | нет | `false` | тестовая оплата без денег. **Не включать на боевом сервере** |
 | `CORS_ORIGINS` | нет | `[]` | JSON-список доменов, если фронтенд живёт на другом домене |
+| `PUBLIC_URL` | нет | `http://localhost:5173` | адрес сайта для ссылок в письмах (на сервере — `https://ваш-домен`) |
+| `PASSWORD_RESET_EXPIRE_MINUTES` | нет | `60` | сколько живёт ссылка восстановления пароля |
+| `SMTP_HOST`, `SMTP_PORT` | нет | —, `587` | почтовый сервер. Если `SMTP_HOST` пустой, письма не отправляются, а печатаются в консоль сервера |
+| `SMTP_USER`, `SMTP_PASSWORD` | нет | — | логин и пароль почтового ящика (для Яндекса и Mail.ru — пароль приложения) |
+| `SMTP_FROM` | нет | `noreply@example.com` | адрес отправителя |
+| `SMTP_STARTTLS`, `SMTP_SSL` | нет | `true`, `false` | шифрование: порт 587 → STARTTLS, порт 465 → `SMTP_SSL=true`, `SMTP_STARTTLS=false` |
 
 ## Структура
 
