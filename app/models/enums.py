@@ -20,6 +20,11 @@ class ThemePreference(StrEnum):
     SYSTEM = "system"
 
 
+class LegalSlug(StrEnum):
+    PRIVACY = "privacy"
+    CONSENT = "consent"
+
+
 class QuestionKind(StrEnum):
     SINGLE = "single"
     MULTIPLE = "multiple"

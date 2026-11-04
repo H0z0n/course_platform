@@ -4,7 +4,8 @@ from app.core.security import create_access_token
 
 async def test_register_login_and_me(client):
     registered = await client.post(
-        "/api/auth/register", json={"email": "New@Example.com", "password": "secret123"}
+        "/api/auth/register",
+        json={"email": "New@Example.com", "password": "secret123", "personal_data_consent": True},
     )
     assert registered.status_code == 201
     assert registered.json()["email"] == "new@example.com"
@@ -26,7 +27,8 @@ async def test_register_login_and_me(client):
 
 async def test_register_rejects_duplicate_email_in_any_case(client, student):
     response = await client.post(
-        "/api/auth/register", json={"email": "STUDENT@example.com", "password": "secret123"}
+        "/api/auth/register",
+        json={"email": "STUDENT@example.com", "password": "secret123", "personal_data_consent": True},
     )
     assert response.status_code == 409
 

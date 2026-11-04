@@ -9,7 +9,18 @@ from sqlalchemy.exc import IntegrityError
 
 from app.core.config import settings
 from app.database import engine
-from app.routers import auth, courses, lessons, modules, progress, purchases, quiz, site, users
+from app.routers import (
+    auth,
+    courses,
+    legal,
+    lessons,
+    modules,
+    progress,
+    purchases,
+    quiz,
+    site,
+    users,
+)
 
 FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 
@@ -49,6 +60,7 @@ for router in (
     purchases.router,
     progress.router,
     quiz.router,
+    legal.router,
 ):
     app.include_router(router, prefix="/api")
 

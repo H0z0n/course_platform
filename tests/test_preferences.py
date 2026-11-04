@@ -1,6 +1,7 @@
 async def test_new_user_gets_light_theme(client):
     registered = await client.post(
-        "/api/auth/register", json={"email": "new@example.com", "password": "secret123"}
+        "/api/auth/register",
+        json={"email": "new@example.com", "password": "secret123", "personal_data_consent": True},
     )
     assert registered.json()["theme"] == "light"
 
