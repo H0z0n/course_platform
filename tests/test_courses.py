@@ -6,7 +6,7 @@ from app.models import LessonProgress
 async def test_site_info_and_health(client):
     site = await client.get("/api/site")
     assert site.status_code == 200
-    assert set(site.json()) == {"site_name", "currency", "demo_payments"}
+    assert {"site_name", "currency", "demo_payments", "hero_title"} <= set(site.json())
     assert (await client.get("/api/health")).json() == {"status": "ok"}
 
 

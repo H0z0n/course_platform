@@ -66,7 +66,29 @@ class ReorderRequest(BaseModel):
     ids: list[int]
 
 
+HexColor = Annotated[
+    str, StringConstraints(strip_whitespace=True, to_lower=True, pattern=r"^#[0-9a-fA-F]{6}$")
+]
+ShortText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
+
+
 class SiteInfo(BaseModel):
     site_name: str
+    logo_url: str | None
+    accent_color: str | None
+    hero_badge: str | None
+    hero_title: str
+    hero_text: str | None
     currency: str
     demo_payments: bool
+
+
+class SiteSettingsUpdate(PatchModel):
+    nullable_fields = frozenset({"logo_url", "accent_color", "hero_badge", "hero_text"})
+
+    site_name: ShortText | None = None
+    logo_url: HttpUrlText | None = None
+    accent_color: HexColor | None = None
+    hero_badge: ShortText | None = None
+    hero_title: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=200)] | None = None
+    hero_text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)] | None = None
